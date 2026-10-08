@@ -1,0 +1,30 @@
+<?php
+include("config.php");
+session_start();
+if(!isset($_SESSION["email"]))
+{
+    header("Location:login.php");
+    exit();
+}
+$sess_email=$_SESSION["email"];
+$sql="SELECT user_id,firstname,lastname,email FROM users WHERE email='$sess_email'";
+$result=$con->query($sql);
+
+if($result->num_rows > 0)
+{
+    while($row=$result->fetch_assoc())
+    {
+        $user_id=$row["user_id"];
+        $firstname=$row["firstname"];
+        $lastname=$row["lastname"];
+        $username=$row["firstname"]." ".$row["lastname"];
+        $useremail=$row["email"];
+    }
+}
+else
+{
+    $userid="1";
+    $username="yash";
+    $useremail="mehtayash286@gmail.com";
+}
+?>
